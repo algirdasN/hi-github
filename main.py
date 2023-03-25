@@ -15,8 +15,6 @@ hi_dict = {
 
 
 def main():
-    run(["git", "checkout", "-B", "contributions"])
-
     curr_date = datetime.now()
     _, week, weekday = curr_date.isocalendar()
     week %= 13
@@ -25,6 +23,7 @@ def main():
 
 
 def contribute(date):
+    run(["git", "checkout", "-B", "contributions"])
     with open("contributions.txt", "a") as file:
         file.write(date)
     run(["git", "commit", "-a", "-m", date])
