@@ -2,7 +2,9 @@
 from datetime import datetime
 from subprocess import Popen
 
-hi_dict = {
+BRANCH = "contributions"
+FILENAME = "contributions.txt"
+HI_DICT = {
     2: {1, 2, 3, 4, 5},
     3: {3},
     4: {3},
@@ -18,15 +20,17 @@ def main():
     curr_date = datetime.now()
     _, week, weekday = curr_date.isocalendar()
     week %= 13
-    if weekday in hi_dict.get(week, set()):
+    if weekday in HI_DICT.get(week, set()):
         contribute(curr_date.strftime("%Y-%m-%d %H:%M"))
 
 
 def contribute(date):
-    run(["git", "checkout", "-B", "contributions"])
-    with open("contributions.txt", "a") as file:
-        file.write(date)
+    run(["git", "checkout", "-B", BRANCH])
+    with open(FILENAME, "a") as file:
+        file.write(date + "\n")
+    run(["git", "add", FILENAME])
     run(["git", "commit", "-a", "-m", date])
+    run(["git", "push", "-u", "origin", BRANCH])
 
 
 def run(commands):
