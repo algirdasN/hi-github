@@ -2,7 +2,7 @@
 from datetime import datetime
 from subprocess import Popen
 
-BRANCH = "contributions"
+BRANCH = "main"
 FILENAME = "contributions.txt"
 HI_DICT = {
     2: {1, 2, 3, 4, 5},
